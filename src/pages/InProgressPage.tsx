@@ -1,14 +1,15 @@
 import {Todo} from "../types/Todo.ts";
-import {FormEvent, useEffect, useState} from "react";
+import {FormEvent, useState} from "react";
 import TodoCard from "../components/TodoCard.tsx";
 
-type ViewPageProps = {
+type InProgressPageProps = {
     todos:Todo[];
     addTodo: (description:string) => void
 }
 
-export default function ViewPage(props:Readonly<ViewPageProps>){
+export default function InProgressPage(props:Readonly<InProgressPageProps>){
 
+    const inProgressTodos = props.todos.filter(todo => todo.status === "IN_PROGRESS");
     const[description, setDescription] = useState("");
 
     function handleSubmit(e:FormEvent<HTMLFormElement>){
@@ -17,14 +18,8 @@ export default function ViewPage(props:Readonly<ViewPageProps>){
 
     }
 
-    useEffect(() => {
-        console.log(props.todos)
-    }, [])
-
     return(
         <>
-            <h1>Hallo</h1>
-
             <form onSubmit={handleSubmit}>
                 <input type={"text"} onChange={(e) => setDescription(e.target.value)} placeholder="New Todo"/>
 
@@ -32,7 +27,7 @@ export default function ViewPage(props:Readonly<ViewPageProps>){
             </form>
 
             {
-                props.todos.map((todo) => <TodoCard todo={todo} key={todo.id}/>)
+                inProgressTodos.map((todo) => <TodoCard todo={todo} key={todo.id}/>)
             }
         </>
     )

@@ -4,7 +4,9 @@ export default function Navigation(){
     return(
         <>
             <div>
-                <Link to={"/view"}> ViewPage </Link>
+                <Link to={"/"}> Open |</Link>
+                <Link to={"/inprogress"}> In Progress |</Link>
+                <Link to={"/done"}> Done </Link>
             </div>
         </>
     )

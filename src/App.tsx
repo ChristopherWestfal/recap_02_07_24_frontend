@@ -3,14 +3,16 @@ import {useEffect, useState} from "react";
 import {Todo} from "./types/Todo.ts";
 import axios from "axios";
 import {Route, Routes} from "react-router-dom";
-import ViewPage from "./pages/ViewPage.tsx";
+import OpenPage from "./pages/OpenPage.tsx";
 import Navigation from "./components/Navigation.tsx";
 import DetailPage from "./pages/DetailPage.tsx";
+import InProgressPage from "./pages/InProgressPage.tsx";
+import DonePage from "./pages/DonePage.tsx";
 
 function App() {
 
     const[todos, setTodos] = useState<Todo[]>([])
-    const[todo, setTodo] = useState<Todo>()
+    const[todo, setTodo] = useState<Todo>({id:"", description:"", status:""})
 
     function getTodos(){
         axios.get("/api/todo")
@@ -24,10 +26,19 @@ function App() {
             .catch(error => console.log(error))
     }
 
-    function updateTodo(id:string, description:string, status:string){
-        axios.put("api/todo/${id}", {id:id, description:description, status:status})
+    function updateTodo(id:string | undefined, description:string, status:string){
+        axios.put(`/api/todo/${id}`, {description:description, status:status})
+            .then(getTodos)
             .catch(error => console.log(error))
     }
+
+    function getById(id:string){
+        axios.get(`/api/todo/${id}`)
+            .then(response => setTodo(response.data))
+            .catch(error => console.log(error))
+    }
+
+
 
     useEffect(() => {
         document.title = "Todo App"
@@ -40,8 +51,10 @@ function App() {
                 <Navigation/>
             </header>
             <Routes>
-                <Route path={"/"} element={<ViewPage todos={todos} addTodo={addTodo}/>}/>
-                <Route path={"/detail"} element={<DetailPage todo={todo} upodateTodo={{updateTodo}}/>}/>
+                <Route path={"/"} element={<OpenPage todos={todos} addTodo={addTodo}/>}/>
+                <Route path={"/inprogress"} element={<InProgressPage todos={todos} addTodo={addTodo}/>}/>
+                <Route path={"/done"} element={<DonePage todos={todos} addTodo={addTodo}/>}/>
+                <Route path={"/:id"} element={<DetailPage todo={todo} updateTodo={updateTodo} getById={getById}/>}/>
             </Routes>
         </>
     )
