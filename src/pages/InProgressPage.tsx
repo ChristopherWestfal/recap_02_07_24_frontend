@@ -5,6 +5,7 @@ import TodoCard from "../components/TodoCard.tsx";
 type InProgressPageProps = {
     todos:Todo[];
     addTodo: (description:string) => void
+    deleteById: (id:string) => void
 }
 
 export default function InProgressPage(props:Readonly<InProgressPageProps>){
@@ -15,7 +16,7 @@ export default function InProgressPage(props:Readonly<InProgressPageProps>){
     function handleSubmit(e:FormEvent<HTMLFormElement>){
         e.preventDefault();
         props.addTodo(description);
-
+        setDescription("")
     }
 
     return(
@@ -27,7 +28,7 @@ export default function InProgressPage(props:Readonly<InProgressPageProps>){
             </form>
 
             {
-                inProgressTodos.map((todo) => <TodoCard todo={todo} key={todo.id}/>)
+                inProgressTodos.map((todo) => <TodoCard todo={todo} key={todo.id} deleteById={props.deleteById}/>)
             }
         </>
     )

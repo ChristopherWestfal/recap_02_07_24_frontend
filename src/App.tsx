@@ -38,7 +38,11 @@ function App() {
             .catch(error => console.log(error))
     }
 
-
+    function deleteById(id:string){
+        axios.delete(`/api/todo/${id}`)
+            .then(getTodos)
+            .catch(error => console.log(error))
+    }
 
     useEffect(() => {
         document.title = "Todo App"
@@ -51,9 +55,9 @@ function App() {
                 <Navigation/>
             </header>
             <Routes>
-                <Route path={"/"} element={<OpenPage todos={todos} addTodo={addTodo}/>}/>
-                <Route path={"/inprogress"} element={<InProgressPage todos={todos} addTodo={addTodo}/>}/>
-                <Route path={"/done"} element={<DonePage todos={todos} addTodo={addTodo}/>}/>
+                <Route path={"/"} element={<OpenPage todos={todos} addTodo={addTodo} deleteById={deleteById}/>}/>
+                <Route path={"/inprogress"} element={<InProgressPage todos={todos} addTodo={addTodo} deleteById={deleteById}/>}/>
+                <Route path={"/done"} element={<DonePage todos={todos} addTodo={addTodo} deleteById={deleteById}/>}/>
                 <Route path={"/:id"} element={<DetailPage todo={todo} updateTodo={updateTodo} getById={getById}/>}/>
             </Routes>
         </>

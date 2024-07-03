@@ -5,6 +5,7 @@ import TodoCard from "../components/TodoCard.tsx";
 type OpenPageProps = {
     todos:Todo[];
     addTodo: (description:string) => void
+    deleteById: (id:string) => void
 }
 
 export default function OpenPage(props:Readonly<OpenPageProps>){
@@ -15,7 +16,7 @@ export default function OpenPage(props:Readonly<OpenPageProps>){
     function handleSubmit(e:FormEvent<HTMLFormElement>){
         e.preventDefault();
         props.addTodo(description);
-
+        setDescription("")
     }
 
     return(
@@ -27,7 +28,7 @@ export default function OpenPage(props:Readonly<OpenPageProps>){
             </form>
 
             {
-                openTodos.map((todo) => <TodoCard todo={todo} key={todo.id}/>)
+                openTodos.map((todo) => <TodoCard todo={todo} key={todo.id} deleteById={props.deleteById}/>)
             }
         </>
     )

@@ -5,6 +5,7 @@ import TodoCard from "../components/TodoCard.tsx";
 type DonePageProps = {
     todos:Todo[];
     addTodo: (description:string) => void
+    deleteById: (id:string) => void
 }
 
 export default function DonePage(props:Readonly<DonePageProps>){
@@ -15,7 +16,7 @@ export default function DonePage(props:Readonly<DonePageProps>){
     function handleSubmit(e:FormEvent<HTMLFormElement>){
         e.preventDefault();
         props.addTodo(description);
-
+        setDescription("")
     }
 
     return(
@@ -27,7 +28,7 @@ export default function DonePage(props:Readonly<DonePageProps>){
             </form>
 
             {
-                doneTodos.map((todo) => <TodoCard todo={todo} key={todo.id}/>)
+                doneTodos.map((todo) => <TodoCard todo={todo} key={todo.id} deleteById={props.deleteById}/>)
             }
         </>
     )
