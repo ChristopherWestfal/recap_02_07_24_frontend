@@ -27,7 +27,7 @@ function App() {
     }
 
     function updateTodo(id:string | undefined, description:string, status:string){
-        axios.put(`/api/todo/${id}`, {description:description, status:status})
+        axios.put(`/api/todo/${id}`, {id:id, description:description, status:status})
             .then(getTodos)
             .catch(error => console.log(error))
     }
