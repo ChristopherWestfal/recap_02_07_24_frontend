@@ -6,6 +6,7 @@ type DonePageProps = {
     todos:Todo[];
     addTodo: (description:string) => void
     deleteById: (id:string) => void
+    updateTodo: (id:string | undefined, description:string, status:string) => void
 }
 
 export default function DonePage(props:Readonly<DonePageProps>){
@@ -28,7 +29,7 @@ export default function DonePage(props:Readonly<DonePageProps>){
             </form>
 
             {
-                doneTodos.map((todo) => <TodoCard todo={todo} key={todo.id} deleteById={props.deleteById}/>)
+                doneTodos.map((todo) => <TodoCard todo={todo} key={todo.id} deleteById={props.deleteById} updateTodo={props.updateTodo}/>)
             }
         </>
     )

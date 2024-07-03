@@ -55,9 +55,9 @@ function App() {
                 <Navigation/>
             </header>
             <Routes>
-                <Route path={"/"} element={<OpenPage todos={todos} addTodo={addTodo} deleteById={deleteById}/>}/>
-                <Route path={"/inprogress"} element={<InProgressPage todos={todos} addTodo={addTodo} deleteById={deleteById}/>}/>
-                <Route path={"/done"} element={<DonePage todos={todos} addTodo={addTodo} deleteById={deleteById}/>}/>
+                <Route path={"/"} element={<OpenPage todos={todos} addTodo={addTodo} deleteById={deleteById} updateTodo={updateTodo}/>}/>
+                <Route path={"/inprogress"} element={<InProgressPage todos={todos} addTodo={addTodo} deleteById={deleteById} updateTodo={updateTodo}/>}/>
+                <Route path={"/done"} element={<DonePage todos={todos} addTodo={addTodo} deleteById={deleteById} updateTodo={updateTodo}/>}/>
                 <Route path={"/:id"} element={<DetailPage todo={todo} updateTodo={updateTodo} getById={getById}/>}/>
             </Routes>
         </>

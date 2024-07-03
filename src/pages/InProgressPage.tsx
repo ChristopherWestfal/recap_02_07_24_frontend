@@ -6,6 +6,7 @@ type InProgressPageProps = {
     todos:Todo[];
     addTodo: (description:string) => void
     deleteById: (id:string) => void
+    updateTodo: (id:string | undefined, description:string, status:string) => void
 }
 
 export default function InProgressPage(props:Readonly<InProgressPageProps>){
@@ -28,7 +29,7 @@ export default function InProgressPage(props:Readonly<InProgressPageProps>){
             </form>
 
             {
-                inProgressTodos.map((todo) => <TodoCard todo={todo} key={todo.id} deleteById={props.deleteById}/>)
+                inProgressTodos.map((todo) => <TodoCard todo={todo} key={todo.id} deleteById={props.deleteById} updateTodo={props.updateTodo}/>)
             }
         </>
     )

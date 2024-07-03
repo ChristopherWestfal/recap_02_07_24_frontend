@@ -6,6 +6,7 @@ type OpenPageProps = {
     todos:Todo[];
     addTodo: (description:string) => void
     deleteById: (id:string) => void
+    updateTodo: (id:string | undefined, description:string, status:string) => void
 }
 
 export default function OpenPage(props:Readonly<OpenPageProps>){
@@ -28,7 +29,7 @@ export default function OpenPage(props:Readonly<OpenPageProps>){
             </form>
 
             {
-                openTodos.map((todo) => <TodoCard todo={todo} key={todo.id} deleteById={props.deleteById}/>)
+                openTodos.map((todo) => <TodoCard todo={todo} key={todo.id} deleteById={props.deleteById} updateTodo={props.updateTodo}/>)
             }
         </>
     )

@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 type TodoCardProps = {
     todo:Todo;
     deleteById: (id:string) => void
-
+    updateTodo: (id:string | undefined, description:string, status:string) => void
 }
 
 export default function TodoCard(props:Readonly<TodoCardProps>){
@@ -18,15 +18,18 @@ export default function TodoCard(props:Readonly<TodoCardProps>){
         props.deleteById(props.todo.id)
     }
 
-    function secondButton(){
-        if(props.todo.status === "OPEN") {
-            <p>Hallo</p>
-        } else if (props.todo.status === "IN_PROGRESS"){
-            <p>Hallo</p>
-        } else {
-            <p>Hallo</p>
-        }
+    function advancedButton(){
+        let newStatus = ""
 
+        if(props.todo.status === "OPEN") {
+            newStatus = "IN_PROGRESS"
+            props.updateTodo(props.todo.id, props.todo.description, newStatus)
+            navigate(`/inprogress`)
+        } else if (props.todo.status === "IN_PROGRESS"){
+            newStatus = "DONE"
+            props.updateTodo(props.todo.id, props.todo.description, newStatus)
+            navigate(`/done`)
+        }
     }
 
     return(
@@ -39,7 +42,7 @@ export default function TodoCard(props:Readonly<TodoCardProps>){
                     {props.todo.status === "DONE" ? (
                         <button disabled={true}>Advanced</button>
                     ) : (
-                        <button onClick={secondButton}>Advanced</button>
+                        <button onClick={advancedButton}>Advanced</button>
                     )}
                     <button onClick={deleteButton}>Del</button>
                 </div>
