@@ -12,8 +12,8 @@ export default function DetailPage(props:Readonly<DetailPageProps>){
 
     const navigate = useNavigate();
     const params = useParams();
-    const[description, setDescription] = useState("");
-    const[status, setStatus] = useState("OPEN");
+    const[description, setDescription] = useState(props.todo.description);
+    const[status, setStatus] = useState(props.todo.status);
 
 
     function handleCancle(){
@@ -24,7 +24,6 @@ export default function DetailPage(props:Readonly<DetailPageProps>){
         e.preventDefault();
         if (params.id) {
             props.updateTodo(params.id, description, status)
-            setDescription("");
             navigate('/');
         }
     }
@@ -52,6 +51,7 @@ export default function DetailPage(props:Readonly<DetailPageProps>){
                 <button>save</button>
                 <button onClick={handleCancle}>cancle</button>
             </form>
+
         </>
     )
 }
